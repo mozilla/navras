@@ -22,6 +22,7 @@ class Product(models.Model):
 class Point(models.Model):
     """Model for Conversion Points"""
     title = models.CharField(max_length=100)
+    quantity = models.PositiveIntegerField(default=1)
     source = models.ForeignKey(Source)
     area = models.ForeignKey(Area, blank=True, null=True,
                                on_delete=models.SET_NULL)
