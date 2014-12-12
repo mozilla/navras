@@ -1,17 +1,8 @@
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-# Security
-SECRET_KEY = 'n(5_wbll7nrf6ido77q(1s+fr7&$-zqdc*lb47d+vswrscx^m8'
-ALLOWED_HOSTS = []
-
-# Debug
-DEBUG = True
-TEMPLATE_DEBUG = True
-
-
 # Application definition
-INSTALLED_APPS = (
+INSTALLED_APPS = [
     # Django
     'django.contrib.admin',
     'django.contrib.auth',
@@ -25,7 +16,7 @@ INSTALLED_APPS = (
 
     # Config
     'constance',
-)
+]
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -41,15 +32,6 @@ ROOT_URLCONF = 'navras.urls'
 
 WSGI_APPLICATION = 'navras.wsgi.application'
 
-
-# Database
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-
 # Internationalization
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
@@ -57,5 +39,5 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
+# Static files (CSS, Js, Images)
 STATIC_URL = '/static/'
