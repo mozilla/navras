@@ -1,0 +1,43 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Contribution Pathways - {% block title %}{% endblock title %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="//mozorg.cdn.mozilla.net/media/css/tabzilla-min.css" />
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="{% static 'css/app.css' %}">
+    {% block css %}
+    {% endblock css %}
+
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
+
+  </head>
+
+  <body>
+    <div id="#wrapper">
+      <div class="container">
+        <a href="https://www.mozilla.org/" id="tabzilla">mozilla</a>
+
+        {% if messages %}
+          {% for message in messages %}
+              <div class="alert {% if message.tags %}alert-{{ message.tags }}"{% endif %}>{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+
+        {% block content %}{% endblock content %}
+
+      </div> <!-- /container -->
+    </div> <!-- /wrapper -->
+
+    <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <script src="//mozorg.cdn.mozilla.net/tabzilla/tabzilla.js"></script>
+    <script src="{% static 'js/app.js' %}"></script>
+    {% block javascript %}
+    {% endblock javascript %}
+</body>
+</html>
