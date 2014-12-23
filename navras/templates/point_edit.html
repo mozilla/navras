@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-md-6">
+      <form class="form-horizontal" role="form" method="post" action="">{% csrf_token %}
+        <div class="form-group">
+          <label for="Title">Title</label>
+          <input type="text" class="form-control" id="Title" required>
+        </div>
+        <div class="form-group">
+          <label for="Quantity">Quantity</label>
+          <input type="text" class="form-control" id="Quantity" required>
+        </div>
+        <div class="form-group">
+          <label for="Source">Source</label>
+          <select multiple class="form-control" name="source">
+            {% for source in sources %}
+              <option value="{{ source.id }}">
+                {{ source.title }}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="Area">Area</label>
+          <select multiple class="form-control" name="area">
+            {% for area in areas %}
+              <option value="{{ area.id }}">
+                {{ area.title }}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="Product">Product</label>
+          <select multiple class="form-control" name="product">
+            {% for product in products %}
+              <option value="{{ product.id }}">
+                {{ product.title }}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="Parent">Parent</label>
+          <input type="text" class="form-control" id="Parent" required>
+        </div>
+        <button type="submit" class="btn btn-lg btn-primary">Save</button>
+      </form>
+    </div>
+  </div>
+{% endblock content %}
