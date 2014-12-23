@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load browserid %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -9,6 +10,7 @@
     <link rel="stylesheet" href="//mozorg.cdn.mozilla.net/media/css/tabzilla-min.css" />
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="{% static 'browserid/persona-buttons.css' %}">
     <link rel="stylesheet" href="{% static 'css/app.css' %}">
     {% block css %}
     {% endblock css %}
@@ -18,15 +20,55 @@
   </head>
 
   <body>
+    {% browserid_info %}
     <div id="#wrapper">
       <div class="container">
         <a href="https://www.mozilla.org/" id="tabzilla">mozilla</a>
 
+        <nav class="navbar navbar-default" role="navigation">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#">
+                <img alt="Brand" src="{% static 'img/brand.png' %}" style="margin-top:-15px;max-height:50px;">
+              </a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav">
+                <li><a href="{% url 'home' %}">Home</a></li>
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                {% if user.is_authenticated %}
+                  <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ user.email }} <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                      <li><a href="#">{% browserid_logout text='Logout' %}</a></li>
+                    </ul>
+                  </li>
+                {% else %}
+                  <li>{% browserid_login text='Login' color='dark' %}</li>
+                {% endif %}
+              </ul>
+            </div>
+          </div>
+        </nav>
+
         {% if messages %}
           {% for message in messages %}
-              <div class="alert {% if message.tags %}alert-{{ message.tags }}"{% endif %}>{{ message }}</div>
+            <div class="alert {% if message.tags %}alert-{{ message.tags }}"{% endif %}>
+              {{ message }}
+            </div>
           {% endfor %}
         {% endif %}
+      </div>
+
+      <div class="container">
 
         {% block content %}{% endblock content %}
 
@@ -34,6 +76,9 @@
     </div> <!-- /wrapper -->
 
     <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://login.persona.org/include.js"></script>
+    <script src="{% static 'browserid/api.js' %}"></script>
+    <script src="{% static 'browserid/browserid.js' %}"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
     <script src="//mozorg.cdn.mozilla.net/tabzilla/tabzilla.js"></script>
     <script src="{% static 'js/app.js' %}"></script>

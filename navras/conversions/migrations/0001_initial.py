@@ -28,8 +28,8 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('title', models.CharField(max_length=100)),
                 ('quantity', models.PositiveIntegerField(default=1)),
-                ('area', models.ForeignKey(on_delete=django.db.models.deletion.SET_NULL, blank=True, to='base.Area', null=True)),
-                ('parent', models.ManyToManyField(related_name='parent_rel_+', null=True, to='base.Point', blank=True)),
+                ('area', models.ForeignKey(on_delete=django.db.models.deletion.SET_NULL, blank=True, to='conversions.Area', null=True)),
+                ('parent', models.ManyToManyField(related_name='parent_rel_+', null=True, to='conversions.Point', blank=True)),
             ],
             options={
             },
@@ -60,13 +60,13 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='point',
             name='product',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.SET_NULL, blank=True, to='base.Product', null=True),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.SET_NULL, blank=True, to='conversions.Product', null=True),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='point',
             name='source',
-            field=models.ForeignKey(to='base.Source'),
+            field=models.ForeignKey(to='conversions.Source'),
             preserve_default=True,
         ),
     ]
